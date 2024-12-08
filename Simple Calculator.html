@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Calculator</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .calculator {
+            background: #333;
+            border-radius: 20px;
+            width: 350px;
+            padding: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .display {
+            display: flex;
+            justify-content: flex-end;
+            margin-bottom: 20px;
+        }
+
+        .display input {
+            width: 100%;
+            height: 70px;
+            font-size: 36px;
+            background: #222;
+            color: #fff;
+            border: none;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: right;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .buttons {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+        }
+
+        .buttons input {
+            background: #444;
+            color: white;
+            font-size: 28px;
+            border-radius: 15px;
+            border: none;
+            padding: 20px;
+            cursor: pointer;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .buttons input:hover {
+            background: #555;
+            transform: scale(1.05);
+        }
+
+        .buttons input.operator {
+            background: #ff8c00;
+            color: white;
+            font-weight: bold;
+        }
+
+        .buttons input.operator:hover {
+            background: #ff7f00;
+        }
+
+        .buttons input.equal {
+            background: #4caf50;
+            color: white;
+            grid-column: span 2;
+            font-weight: bold;
+        }
+
+        .buttons input.equal:hover {
+            background: #45a049;
+        }
+
+        .buttons input:active {
+            transform: scale(0.98);
+        }
+    </style>
+</head>
+<body>
+
+    <div class="calculator">
+        <form>
+            <div class="display">
+                <input type="text" name="display" id="display" disabled>
+            </div>
+            <div class="buttons">
+                <input type="button" value="AC" class="operator" onclick="clearDisplay()">
+                <input type="button" value="DE" onclick="deleteLast()">
+                <input type="button" value="." onclick="appendToDisplay('.')">
+                <input type="button" value="/" onclick="appendToDisplay('/')">
+                
+                <input type="button" value="7" onclick="appendToDisplay('7')">
+                <input type="button" value="8" onclick="appendToDisplay('8')">
+                <input type="button" value="9" onclick="appendToDisplay('9')">
+                <input type="button" value="*" onclick="appendToDisplay('*')">
+                
+                <input type="button" value="4" onclick="appendToDisplay('4')">
+                <input type="button" value="5" onclick="appendToDisplay('5')">
+                <input type="button" value="6" onclick="appendToDisplay('6')">
+                <input type="button" value="-" onclick="appendToDisplay('-')">
+                
+                <input type="button" value="1" onclick="appendToDisplay('1')">
+                <input type="button" value="2" onclick="appendToDisplay('2')">
+                <input type="button" value="3" onclick="appendToDisplay('3')">
+                <input type="button" value="+" onclick="appendToDisplay('+')">
+                
+                <input type="button" value="00" onclick="appendToDisplay('00')">
+                <input type="button" value="0" onclick="appendToDisplay('0')">
+                <input type="button" value="=" class="equal" onclick="calculateResult()">
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function appendToDisplay(value) {
+            document.getElementById('display').value += value;
+        }
+
+        function clearDisplay() {
+            document.getElementById('display').value = '';
+        }
+
+        function deleteLast() {
+            let display = document.getElementById('display');
+            display.value = display.value.slice(0, -1);
+        }
+
+        function calculateResult() {
+            let display = document.getElementById('display');
+            try {
+                display.value = eval(display.value) || '';
+            } catch (error) {
+                display.value = 'Error';
+            }
+        }
+    </script>
+</body>
+</html>
